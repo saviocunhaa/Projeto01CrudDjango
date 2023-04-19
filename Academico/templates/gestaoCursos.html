@@ -1,22 +1,57 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+{% extends './base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+{% block title %} Gestão de Cursos {% endblock  %}
 
-<body>
-    <h1>Primeira Conexao</h1>
 
-    <ul>
-        {% for c in cursos %}
-        <li> {{c.nome}} </li>
-        <li> {{c.creditos}} </li>
-        {% endfor %}
-    </ul>
-</body>
+{% block body %}
+    
+<div class="row">
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+        <h2>Gestão de Cursos</h2>
+        <div class="card">
+            <div class="card-body">
+                <form action="/registrarCurso/" method="POST"> {% csrf_token %}
+                    <div class="col">
+                        <input type="text" id="txtCodigo" name="txtCodigo" class="form-control" placeholder="Codigo" required>
+                    </div>
+                   
+                        <input type="text" id="txtNome" name="txtNome" class="form-control" placeholder="Nome" required>
+                
 
-</html>
+                    
+                        <input type="text" id="txtCredito" name="txtCredito" class="form-control" placeholder="Credito" value="1" required>
+                  
+                    
+                        <button type="submit" class="btn-success btn-block">Salvar</button>
+                   
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+        <h1>Lista de Cursos</h1>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Codigo</th>
+                        <th>Nome</th>
+                        <th>Creditos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for c in cursos %}
+                    <tr>
+                        <td>{{c.codigo}}</td>
+                        <td>{{c.nome}}</td>
+                        <td>{{c.creditos}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock  %}
